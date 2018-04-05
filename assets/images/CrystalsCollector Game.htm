@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)file:///Users/Dzmitry/Desktop/bootcamp/github/unit-4-game/index2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>CrystalsCollector Game</title>
+  <link href="./CrystalsCollector Game_files/style.css" type="text/css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./CrystalsCollector Game_files/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+</head>
+
+<body>       
+    <div class="container">
+        <div class="">
+        <h2 class="">Number to Guess: <span id="number-to-guess" class="label label-success">114</span></h2>
+        </div>
+        <div id="crystals">
+        <img src="./CrystalsCollector Game_files/Crystal_iso8.png" class="crystal-image" data-crystalvalue="5"><img src="./CrystalsCollector Game_files/crystal_rare.png" class="crystal-image" data-crystalvalue="8"><img src="./CrystalsCollector Game_files/Crystal_iso8.png" class="crystal-image" data-crystalvalue="12"><img src="./CrystalsCollector Game_files/crystal_rare.png" class="crystal-image" data-crystalvalue="9"></div>
+        <div class="">
+            <h3 class="alert alert-info">Your score: <span id="score">0</span></h3>
+            <h3 class="alert alert-success">Wins: <span id="win">0</span></h3>
+            <h3 class="alert alert-danger">Losses: <span id="loss">0</span></h3>
+        </div>
+    </div>
+  
+  <script type="text/javascript" src="./CrystalsCollector Game_files/jquery.min.js"></script>
+  <script type="text/javascript">
+        var targetNumber;     
+        function myfn(){
+            // init target number
+            targetNumber = Math.floor(Math.random()*(120-19)+1) + 19; //19 - 120
+            $("#number-to-guess").text(targetNumber);
+            // populate crystal values
+            for (var x = 0; x <4; x++){
+                var random = Math.floor(Math.random()*12) + 1;
+              console.log(random)
+                // numberOptions.push(random);   
+                imageCrystals[x].attr("data-crystalvalue", random);    
+            }; 
+        }
+        var crystals = $("#crystals");
+        var counter = 0;
+        var win = 0;      
+        var loss = 0;     
+        var imageCrystals = [];
+        var imgsrc = [ 
+                "../unit-4-game/assets/images/crystal_rare.png", 
+                "../unit-4-game/assets/images/Green_Wind_Crystal.png", 
+                "../unit-4-game/assets/images/ice-crystal.png",
+                "../unit-4-game/assets/images/2-Star_Crystal.png",
+                "../unit-4-game/assets/images/Crystal_iso8.png",
+                "../unit-4-game/assets/images/Arena_Crystal.png",
+                "../unit-4-game/assets/images/crystal.png",
+            ];
+        for (var i = 0; i < 4; i++) {          
+            var imageCrystal = $("<img>");
+                // for (var a = 0; a < 4; a ++){
+                    var randomimg = imgsrc[Math.floor(Math.random()*imgsrc.length)];
+                    // imageCrystal.attr("src", randomimg);
+                // };
+            imageCrystal.attr("src", randomimg);
+            imageCrystal.addClass("crystal-image");  
+            imageCrystals.push(imageCrystal);
+            crystals.append(imageCrystal);
+        };
+        myfn();
+        crystals.on("click", ".crystal-image", function() {
+            var crystalValue = $(this).attr("data-crystalvalue");
+            crystalValue = parseInt(crystalValue);
+            counter += crystalValue;
+            if (counter === targetNumber) {
+                counter = 0;
+                alert("You win!"); 
+                win ++;
+                $("#win").text(win);
+                myfn();
+            }
+            else if (counter >= targetNumber) { 
+                alert("You lose!!");
+                counter = 0;
+                loss ++;
+                $("#loss").text(loss);
+                myfn();    
+            }
+            $("#score").text(counter);
+        });
+  </script>
+
+
+</body></html>

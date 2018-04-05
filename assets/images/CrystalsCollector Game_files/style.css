@@ -1,0 +1,21 @@
+body{
+    background-image: url('../images/geometry2.png');
+    
+}
+
+.crystal-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  #crystals{
+      margin: 80px 0 80px 0;
+      text-align: center;
+  }
+  h3{
+    display: inline-block;
+  }
+  h4{
+    display: inline-block;
+
+  }
